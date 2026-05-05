@@ -42,4 +42,5 @@ desktop.ini
 
 # Saídas geradas
 output/
+_smoke_output/
 *.tmp
