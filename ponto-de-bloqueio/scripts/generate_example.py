@@ -48,7 +48,7 @@ TASKS = [
     ("SOU-01", "Souza Rabelo", "Terraplanagem e drenagem",            "",
      date(2026, 3, 1),   date(2026, 3, 31),  date(2026, 3, 1),   date(2026, 3, 30)),
     ("SOU-02", "Souza Rabelo", "Fundações dos silos",                 "SOU-01",
-     date(2026, 4, 1),   date(2026, 4, 30),  date(2026, 4, 1),   date(2026, 5, 3)),   # +3d slip
+     date(2026, 4, 1),   date(2026, 4, 30),  date(2026, 4, 1),   date(2026, 5, 3)),   # +3d desvio
     ("SOU-03", "Souza Rabelo", "Fundações do galpão de expedição",    "SOU-01",
      date(2026, 4, 5),   date(2026, 4, 25),  date(2026, 4, 6),   date(2026, 4, 28)),  # +3d
     ("SOU-04", "Souza Rabelo", "Pavimentação interna",                "SOU-01",

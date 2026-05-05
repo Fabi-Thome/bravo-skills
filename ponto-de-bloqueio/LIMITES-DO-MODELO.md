@@ -73,7 +73,7 @@ Onde `CUR-01` é uma "tarefa fictícia" com:
 **Parcialmente modelado.**
 
 - Para forçar uma data mínima de início: use o campo **Entrada planejada** com a data desejada. A tarefa não começará antes dela mesmo que os predecessores terminem antes.
-- Para deadlines (data máxima de fim): **não há campo dedicado**. Você precisa monitorar manualmente o slip projetado e tomar ação se ele virar positivo.
+- Para deadlines (data máxima de fim): **não há campo dedicado**. Você precisa monitorar manualmente o desvio projetado e tomar ação se ele virar positivo (atraso).
 
 **Por quê:** datas obrigatórias são casos especiais. A versão v1 trata o mais comum (mínimo de início) com a coluna existente.
 

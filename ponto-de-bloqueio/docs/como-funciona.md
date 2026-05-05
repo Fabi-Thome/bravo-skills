@@ -150,7 +150,7 @@ Esse é o ponto. O caminho crítico transforma uma planilha de 50 linhas em uma 
 Em cada análise, o Gem devolve estas métricas. Cada uma responde uma pergunta operacional clara:
 
 ### 6.1 Data projetada de término
-*Considerando o que já aconteceu, quando a obra termina?* Comparada com a planejada original, dá o **slip** (atraso acumulado em dias).
+*Considerando o que já aconteceu, quando a obra termina?* Comparada com a planejada original, dá o **desvio** (positivo = atraso, negativo = adiantamento, em dias).
 
 ### 6.2 Folga total por tarefa
 *Quem está apertado, quem tem gordura?* Tarefas com folga ≤ 5 dias merecem atenção. Folga negativa = vermelho.
@@ -158,8 +158,8 @@ Em cada análise, o Gem devolve estas métricas. Cada uma responde uma pergunta 
 ### 6.3 Caminho crítico atual
 *Quais 10-15 tarefas merecem foco hoje?* Esta lista muda à medida que a obra evolui — uma tarefa que tinha folga pode entrar no caminho crítico se outra acelerar.
 
-### 6.4 Slip por tarefa
-*Quem atrasou e quanto?* Para cada tarefa: (saída projetada − saída planejada).
+### 6.4 Desvio por tarefa
+*Quem atrasou e quanto?* Para cada tarefa: **desvio = (saída projetada − saída planejada)** em dias. Positivo = atraso. Negativo = adiantamento. Zero = no prazo.
 
 ### 6.5 Maior bloqueador
 *Qual contratado, se atrasar, derruba mais coisa?* Conta quantas tarefas downstream dependem de cada um. Quem aparece em mais tarefas críticas é o **fator de risco número um**.
@@ -198,6 +198,7 @@ Tudo isto está implementado em Python na pasta [`scripts/`](../scripts/), sob l
 | [`render_png.py`](../scripts/render_png.py) | Imagem PNG via matplotlib |
 | [`gen_email.py`](../scripts/gen_email.py) | Texto de e-mail formal |
 | [`gen_whatsapp.py`](../scripts/gen_whatsapp.py) | Texto de WhatsApp curto |
+| [`gen_report.py`](../scripts/gen_report.py) | Relatório HTML standalone (PNG embutido em base64) |
 | [`analyze.py`](../scripts/analyze.py) | Pipeline orquestrador (CLI) |
 
 Você pode rodar localmente sem o Gem, se quiser auditar o cálculo:

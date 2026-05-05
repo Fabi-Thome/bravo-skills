@@ -34,15 +34,15 @@ def gen_email(tasks: list[Task], summary: dict,
     by_id = task_by_id(tasks)
     today = _fmt_date(date.today())
 
-    slip = summary["slip_obra_dias"]
-    if slip is None:
-        slip_label = "Sem dados de planejamento"
-    elif slip == 0:
-        slip_label = "no prazo"
-    elif slip > 0:
-        slip_label = f"atraso de {slip} dia(s)"
+    desvio = summary["desvio_obra_dias"]
+    if desvio is None:
+        situacao = "sem dados de planejamento"
+    elif desvio == 0:
+        situacao = "no prazo"
+    elif desvio > 0:
+        situacao = f"atraso de {desvio} dia(s)"
     else:
-        slip_label = f"adiantada em {-slip} dia(s)"
+        situacao = f"adiantada em {-desvio} dia(s)"
 
     assunto = f"Status — {project_name} — {today}"
 
@@ -60,11 +60,11 @@ def gen_email(tasks: list[Task], summary: dict,
     risco_lines = []
     for tid in em_risco_ids:
         t = by_id[tid]
-        slip_t = t.slip_dias
-        slip_str = f", atraso projetado de {slip_t} dia(s)" if slip_t and slip_t > 0 else ""
+        desvio_t = t.desvio_dias
+        desvio_str = f", atraso projetado de {desvio_t} dia(s)" if desvio_t and desvio_t > 0 else ""
         risco_lines.append(
             f"  • {t.id} — {t.contratado} ({t.escopo}): "
-            f"folga {t.folga} dia(s){slip_str}"
+            f"folga {t.folga} dia(s){desvio_str}"
         )
 
     bloqueadores = summary.get("maiores_bloqueadores", [])
@@ -87,7 +87,7 @@ def gen_email(tasks: list[Task], summary: dict,
         f"  Total de tarefas: {summary['total_tarefas']}",
         f"  Término planejado: {_fmt_date(summary['data_termino_planejado'])}",
         f"  Término projetado: {_fmt_date(summary['data_termino_projetado'])}",
-        f"  Situação: {slip_label}",
+        f"  Situação: {situacao}",
         "",
     ]
 

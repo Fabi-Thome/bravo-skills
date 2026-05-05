@@ -182,7 +182,7 @@ def _setup_limites_sheet(wb: Workbook) -> None:
         ("Recursos (mão-de-obra, equipamentos, equipes compartilhadas)",
          "Análise de recursos é outro problema (RCPSP). Aqui você modela apenas a sequência lógica das interfaces."),
         ("Datas obrigatórias / contratuais (must-start-on, deadline)",
-         "Use o campo 'Entrada planejada' para forçar uma data mínima. Para deadlines, monitore manualmente o slip projetado."),
+         "Use o campo 'Entrada planejada' para forçar uma data mínima. Para deadlines, monitore manualmente o desvio projetado."),
         ("Probabilidades / análise PERT",
          "Modelo determinístico apenas. Para análise de risco probabilístico, use Primavera Risk ou Monte Carlo externo."),
         ("Cronograma interno de cada contratado",

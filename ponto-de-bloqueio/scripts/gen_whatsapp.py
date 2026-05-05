@@ -31,15 +31,15 @@ def gen_whatsapp(tasks: list[Task], summary: dict,
     """
     by_id = task_by_id(tasks)
 
-    slip = summary["slip_obra_dias"]
-    if slip is None:
-        slip_emoji, slip_msg = "⏱️", ""
-    elif slip == 0:
-        slip_emoji, slip_msg = "✅", " (no prazo)"
-    elif slip > 0:
-        slip_emoji, slip_msg = "⚠️", f" (atraso de {slip}d)"
+    desvio = summary["desvio_obra_dias"]
+    if desvio is None:
+        emoji, msg = "⏱️", ""
+    elif desvio == 0:
+        emoji, msg = "✅", " (no prazo)"
+    elif desvio > 0:
+        emoji, msg = "⚠️", f" (atraso de {desvio}d)"
     else:
-        slip_emoji, slip_msg = "🟢", f" ({-slip}d adiantado)"
+        emoji, msg = "🟢", f" ({-desvio}d adiantado)"
 
     cp_ids = summary["caminho_critico"]
     cp_str = " → ".join(cp_ids) if cp_ids else "—"
@@ -54,7 +54,7 @@ def gen_whatsapp(tasks: list[Task], summary: dict,
 
     lines = [
         f"📋 *Status — {project_name}*",
-        f"{slip_emoji} Término projetado: *{_fmt_date(summary['data_termino_projetado'])}*{slip_msg}",
+        f"{emoji} Término projetado: *{_fmt_date(summary['data_termino_projetado'])}*{msg}",
     ]
 
     if cp_ids:

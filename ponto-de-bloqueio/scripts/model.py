@@ -66,8 +66,11 @@ class Task:
         return (self.saida_planejada - self.entrada_planejada).days
 
     @property
-    def slip_dias(self) -> Optional[int]:
-        """Atraso projetado em relação ao planejado (positivo = atrasou)."""
+    def desvio_dias(self) -> Optional[int]:
+        """
+        Desvio projetado em relação ao planejado (em dias).
+        Positivo = atraso. Negativo = adiantamento. Zero = no prazo.
+        """
         if self.saida_projetada is None or self.saida_planejada is None:
             return None
         return (self.saida_projetada - self.saida_planejada).days

@@ -17,6 +17,7 @@ from pathlib import Path
 from .critical_path import analysis_summary, backward_pass
 from .forward_pass import forward_pass
 from .gen_email import gen_email
+from .gen_report import gen_report
 from .gen_whatsapp import gen_whatsapp
 from .model import load_tasks_from_excel, task_by_id
 from .render_mermaid import to_mermaid
@@ -59,6 +60,12 @@ def analyze(excel_path: str | Path, output_dir: str | Path,
     email_text = f"ASSUNTO: {email['assunto']}\n\n{email['corpo']}"
     (output_dir / "email.txt").write_text(email_text, encoding="utf-8")
 
+    # 5. Relatório HTML standalone
+    report_path = gen_report(
+        tasks, summary, png_path, output_dir / "relatorio.html",
+        project_name=project_name, author_name=author_name,
+    )
+
     return {
         "tasks": tasks,
         "graph": G,
@@ -67,6 +74,7 @@ def analyze(excel_path: str | Path, output_dir: str | Path,
         "png_path": png_path,
         "whatsapp": whatsapp,
         "email": email,
+        "report_path": report_path,
     }
 
 
@@ -80,7 +88,16 @@ def _print_summary(result: dict, project_name: str) -> None:
     print(f"  Tarefas:              {summary['total_tarefas']}")
     print(f"  Término planejado:    {summary['data_termino_planejado']}")
     print(f"  Término projetado:    {summary['data_termino_projetado']}")
-    print(f"  Slip da obra:         {summary['slip_obra_dias']} dia(s)")
+    desvio = summary["desvio_obra_dias"]
+    if desvio is None:
+        situacao = "—"
+    elif desvio == 0:
+        situacao = "no prazo"
+    elif desvio > 0:
+        situacao = f"atraso de {desvio} dia(s)"
+    else:
+        situacao = f"adiantamento de {-desvio} dia(s)"
+    print(f"  Situação:             {situacao}")
     print()
     print(f"  Caminho crítico:")
     for tid in summary["caminho_critico"]:
@@ -93,7 +110,7 @@ def _print_summary(result: dict, project_name: str) -> None:
         print(f"  Tarefas em risco:")
         for tid in summary["tarefas_em_risco"]:
             t = by_id[tid]
-            print(f"    • {tid:8s} folga={t.folga}d slip={t.slip_dias}d  {t.escopo}")
+            print(f"    • {tid:8s} folga={t.folga}d desvio={t.desvio_dias}d  {t.escopo}")
         print()
 
     print("  Maiores bloqueadores:")
@@ -119,10 +136,11 @@ def _cli():
     print("=" * 70)
     print(f"  Artefatos salvos em: {args.out.resolve()}")
     print("=" * 70)
-    print(f"    grafo.md      Mermaid (cole no GitHub/VSCode para renderizar)")
-    print(f"    grafo.png     Imagem para anexar em e-mail/WhatsApp")
-    print(f"    whatsapp.txt  Texto pronto para colar no WhatsApp")
-    print(f"    email.txt     Assunto + corpo de e-mail")
+    print(f"    grafo.md         Mermaid (cole no GitHub/VSCode para renderizar)")
+    print(f"    grafo.png        Imagem para anexar em e-mail/WhatsApp")
+    print(f"    whatsapp.txt     Texto pronto para colar no WhatsApp")
+    print(f"    email.txt        Assunto + corpo de e-mail")
+    print(f"    relatorio.html   Relatório completo (abrir no navegador)")
 
 
 if __name__ == "__main__":

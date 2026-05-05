@@ -118,7 +118,7 @@ def biggest_blockers(tasks: list[Task], graph: nx.DiGraph, top_n: int = 5) -> li
 
 def tasks_at_risk(tasks: list[Task], folga_limite_dias: int = 3) -> list[Task]:
     """
-    Tarefas em risco: folga ≤ folga_limite_dias OU já com slip positivo.
+    Tarefas em risco: folga ≤ folga_limite_dias OU já com desvio positivo (atraso).
     """
     em_risco = []
     for t in tasks:
@@ -127,7 +127,7 @@ def tasks_at_risk(tasks: list[Task], folga_limite_dias: int = 3) -> list[Task]:
         if t.folga is not None and t.folga <= folga_limite_dias:
             em_risco.append(t)
             continue
-        if t.slip_dias is not None and t.slip_dias > 0:
+        if t.desvio_dias is not None and t.desvio_dias > 0:
             em_risco.append(t)
     return em_risco
 
@@ -145,15 +145,15 @@ def analysis_summary(tasks: list[Task], graph: nx.DiGraph) -> dict:
     saidas_planejadas = [by_id[n].saida_planejada for n in finais if by_id[n].saida_planejada]
     obra_fim_planejado = max(saidas_planejadas) if saidas_planejadas else None
 
-    slip_obra = None
+    desvio_obra = None
     if obra_fim and obra_fim_planejado:
-        slip_obra = (obra_fim - obra_fim_planejado).days
+        desvio_obra = (obra_fim - obra_fim_planejado).days
 
     return {
         "total_tarefas": len(tasks),
         "data_termino_planejado": obra_fim_planejado,
         "data_termino_projetado": obra_fim,
-        "slip_obra_dias": slip_obra,
+        "desvio_obra_dias": desvio_obra,
         "caminho_critico": criticos,
         "tarefas_em_risco": [t.id for t in tasks_at_risk(tasks)],
         "maiores_bloqueadores": biggest_blockers(tasks, graph),

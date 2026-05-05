@@ -7,7 +7,7 @@ resposta) e em qualquer Markdown viewer moderno. Não exige imagem binária.
 Cores:
 - caminho crítico: vermelho
 - concluída (saída real preenchida): verde
-- em risco (folga ≤ 3 ou slip > 0): amarelo
+- em risco (folga ≤ 3 ou desvio > 0): amarelo
 - normal: cinza claro
 
 Pré-requisito: forward_pass + backward_pass já rodados.

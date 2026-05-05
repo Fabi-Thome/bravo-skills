@@ -39,7 +39,7 @@ Quando estiver no ar, este README terá o link público do Gem aqui no topo.
 1. Baixe o [template Excel](./templates/obra-template.xlsx).
 2. Preencha uma linha por tarefa: contratado, escopo, entra após (IDs), datas planejadas, datas reais (quando aplicável).
 3. Faça upload no [Gem](#) (link em breve).
-4. A IA valida, calcula caminho crítico, gera diagrama, e devolve textos prontos para WhatsApp/e-mail.
+4. A IA valida, calcula caminho crítico, gera diagrama, mensagens prontas para WhatsApp/e-mail e um **relatório HTML completo** (arquivo único para compartilhar ou imprimir como PDF).
 
 ### Caminho 2 — Começar do zero
 
@@ -79,6 +79,7 @@ ponto-de-bloqueio/
 │   ├── render_png.py
 │   ├── gen_email.py
 │   ├── gen_whatsapp.py
+│   ├── gen_report.py             ← relatório HTML standalone
 │   ├── analyze.py                ← orquestrador CLI
 │   ├── generate_template.py      ← gera o template Excel
 │   ├── generate_example.py       ← gera o exemplo completo
@@ -121,10 +122,11 @@ python -m scripts.analyze exemplos/obra-exemplo-completa.xlsx \
     --out output/
 
 # Veja os artefatos gerados em ./output:
-#   grafo.md     ← diagrama Mermaid (cole em viewer Markdown)
-#   grafo.png    ← imagem para anexar em e-mail/WhatsApp
-#   whatsapp.txt ← texto pronto
-#   email.txt    ← assunto + corpo
+#   grafo.md         ← diagrama Mermaid (cole em viewer Markdown)
+#   grafo.png        ← imagem para anexar em e-mail/WhatsApp
+#   whatsapp.txt     ← texto pronto
+#   email.txt        ← assunto + corpo
+#   relatorio.html   ← relatório completo standalone (abrir no navegador)
 ```
 
 Se você é desenvolvedor e quer regenerar o template ou o exemplo:
