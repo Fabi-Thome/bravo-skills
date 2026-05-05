@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# Microsoft Office (lockfiles)
+~$*.xlsx
+~$*.xlsm
+~$*.docx
+~$*.pptx
+
+# IDEs / Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs e ambiente
+*.log
+.env
+.env.local
+
+# Saídas geradas
+output/
+*.tmp
